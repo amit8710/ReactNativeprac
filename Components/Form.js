@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TextInput, View, StyleSheet, Text, TouchableOpacity, Picker, ScrollView } from "react-native";
+import { TextInput, View, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
 
 class Form extends Component {
     state = {
