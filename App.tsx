@@ -7,8 +7,6 @@ import Listapi from "./src/Listapi";
 import Apiphoto from "./src/Apiphoto";
 import Templete from "./src/Templete";
 import FirstAxios from "./src/Firstaxos";
-import Todoapp from "./src/Todoapp";
-
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -21,7 +19,6 @@ const App = () => {
         <Stack.Screen name="Apiphoto" component={Apiphoto} />
         <Stack.Screen name="Templete" component={Templete} />
         <Stack.Screen name="Firstaxos" component={FirstAxios} />
-        <Stack.Screen name="Todoapp" component={Todoapp} />
       </Stack.Navigator>
     </NavigationContainer>
   );
