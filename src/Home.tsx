@@ -9,28 +9,18 @@ type Props = {
 const Home = ({ navigation }: Props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>API</Text>
+      <Text style={styles.title}>Home Page</Text>
 
       <View style={styles.buttonContainer}>
-        <Button title="Line" onPress={() => navigation.navigate("Lineapi")} />
+        <Button title="API" onPress={() => navigation.navigate("Apituto")} />
+          </View>
+          <View style={styles.buttonContainer}>
+          <Button title="Research" onPress={() => navigation.navigate("Research")} />
+      </View>
+      <View style={styles.buttonContainer}>
+          <Button title="Table" onPress={() => navigation.navigate("Exampletable")} />
       </View>
 
-      <View style={styles.buttonContainer}>
-        <Button title="Photo" onPress={() => navigation.navigate("Apiphoto")} />
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <Button title="List" onPress={() => navigation.navigate("Listapi")} />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button title="Temp" onPress={() => navigation.navigate("Templete")} />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button title="Axois" onPress={() => navigation.navigate("Firstaxos")} />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button title="TodoApp" onPress={() => navigation.navigate("Todoapp")} />
-      </View>
     </View>
   );
 };
