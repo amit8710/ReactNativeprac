@@ -14,7 +14,29 @@ import Exampleprops from "./src/Exampleprops";
 import Crud from "./src/Crud";
 import Exampletable from "./src/Exampletable";
 import AsyncStorageExample from "./src/AsyncStorageExample";
-const Stack = createNativeStackNavigator();
+import { UserLogin } from "./src/UserLogin";
+import { UserRegister } from "./src/UserRegister"; 
+
+export type RootStackParamList = {
+  Home: undefined;
+  Apituto: undefined;
+  Research: undefined;
+  Lineapi: undefined;
+  Listapi: undefined;
+  Apiphoto: undefined;
+  Templete: undefined;
+  Firstaxos: undefined;
+  Counter: undefined;
+  Exampleprops: undefined;
+  Crud: undefined;
+  Exampletable: undefined;
+  AsyncStorageExample: undefined;
+  Login: undefined; 
+  Register: undefined; 
+  Locationexamp: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
   return (
@@ -28,11 +50,14 @@ const App = () => {
         <Stack.Screen name="Apiphoto" component={Apiphoto} />
         <Stack.Screen name="Templete" component={Templete} />
         <Stack.Screen name="Firstaxos" component={FirstAxios} />
-        <Stack.Screen name="counter" component={Counter} />
+        <Stack.Screen name="Counter" component={Counter} />
         <Stack.Screen name="Exampleprops" component={Exampleprops} />
         <Stack.Screen name="Crud" component={Crud} />
         <Stack.Screen name="Exampletable" component={Exampletable} />
         <Stack.Screen name="AsyncStorageExample" component={AsyncStorageExample} />
+        <Stack.Screen name="Login" component={UserLogin} />
+        <Stack.Screen name="Register" component={UserRegister} />
+       
       </Stack.Navigator>
     </NavigationContainer>
   );

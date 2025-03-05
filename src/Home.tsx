@@ -1,12 +1,30 @@
-import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
-import { NavigationProp } from "@react-navigation/native";
+import React, { FC, ReactElement, useLayoutEffect } from "react";
+import { Button, StyleSheet, Text, View, Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../App";
 
-type Props = {
-  navigation: NavigationProp<any>;
-};
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
+type Props = { navigation: HomeScreenNavigationProp };
 
-const Home = ({ navigation }: Props) => {
+export const Home: FC<Props> = ({ navigation }): ReactElement => {
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem("user");
+      Alert.alert("Logged Out", "You have been logged out.");
+      navigation.navigate("Login");
+    } catch (error) {
+      Alert.alert("Error", "Failed to log out.");
+    }
+  };
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button title="Logout" onPress={handleLogout} color="red" />
+      ),
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Home Page</Text>
@@ -20,8 +38,10 @@ const Home = ({ navigation }: Props) => {
       <View style={styles.buttonContainer}>
           <Button title="Table" onPress={() => navigation.navigate("Exampletable")} />
       </View>
-
-    </View>
+      <View style={styles.buttonContainer}>
+        <Button title="LocationAccess" onPress={() => navigation.navigate("Locationexamp")} />
+      </View>
+    </View>  
   );
 };
 
