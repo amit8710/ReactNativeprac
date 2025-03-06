@@ -1,61 +1,92 @@
-/*
-Mark tasks as completed
-Store tasks using AsyncStorage
-*/
-
 import React, { useState } from "react";
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
+
 
 function Crud() {
-    //state define
     const [task, setTask] = useState<string>("");
-    const [tasks, setTasks] = useState<string[]>([]);
+    const [taskPriority, setTaskPriority] = useState<string>("High");
+    const [tasks, setTasks] = useState<{ task: string; priority: string }[]>([]);
     const [editIndex, setEditIndex] = useState<number | null>(null);
-//function define to add,edit,delete
+    const [showDatePicker, setshowDatePicker] = useState(false);
+
     const handleAddTask = () => {
         if (task.trim()) {
             if (editIndex !== null) {
                 const updatedTasks = [...tasks];
-                updatedTasks[editIndex] = task;
+                updatedTasks[editIndex] = { task, priority: taskPriority };
                 setTasks(updatedTasks);
                 setEditIndex(null);
             } else {
-                setTasks([...tasks, task]);
+                setTasks([...tasks, { task, priority: taskPriority }]);
             }
             setTask("");
+            setTaskPriority("Medium"); 
         }
     };
-    const handleEditTask = (index: number) =>{
-        setTask(tasks[index]);
+
+    const handleEditTask = (index: number) => {
+        setTask(tasks[index].task);
+        setTaskPriority(tasks[index].priority);
         setEditIndex(index);
     };
+
     const handleDeleteTask = (index: number) => {
         setTasks(tasks.filter((_, i) => i !== index));
-      };
-      // display the item 
-    const renderItem = ({ item, index }: { item: string; index: number }) => (
-        <View style={styles.task}>
-            <Text style={styles.itemList}>{item}</Text>
-            <View style={styles.taskButton}>
-            <TouchableOpacity onPress={() => handleEditTask(index)}>
-               <Text style={styles.editButton}>Edit</Text>
-               </TouchableOpacity>
-               <TouchableOpacity onPress={() => handleDeleteTask(index)}>
-                <Text style={styles.deleteButton}>Delete</Text>
-               </TouchableOpacity>
+    };
+
+    const renderItem = ({ item, index }: { item: { task: string; priority: string }; index: number }) => {
+        let priorityColor;
+        switch (item.priority) {
+            case "Low":
+                priorityColor = "#23bb3f";
+                break;
+            case "Medium":
+                priorityColor = "#1aaef3";
+                break;
+            case "High":
+                priorityColor = "#ea340b";
+                break;
+            default:
+                priorityColor = "#ffc107";
+        }
+        return (
+            <View style={[styles.task, { borderColor: priorityColor }]}>
+                <Text style={styles.itemList}>{item.task}</Text>
+                <View style={styles.taskButton}>
+                    <TouchableOpacity onPress={() => handleEditTask(index)}>
+                        <Text style={styles.editButton}>Edit</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => handleDeleteTask(index)}>
+                        <Text style={styles.deleteButton}>Delete</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
-    );
-// UI element 
+        );
+    };
+
     return (
         <View style={styles.container}>
-            <Text style={styles.title}> Task To-Do</Text>
+            <Text style={styles.title}>Task To-Do</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Enter task..."
                 value={task}
                 onChangeText={setTask}
             />
+            <View style={styles.priorityContainer}>
+                <Text style={styles.priorityLabel}>Set Priority</Text>
+                <Picker
+                    selectedValue={taskPriority}
+                    style={styles.priorityPicker}
+                    onValueChange={(itemValue) => setTaskPriority(itemValue)}
+                >
+                    <Picker.Item label="Low" value="Low" />
+                    <Picker.Item label="Medium" value="Medium" />
+                    <Picker.Item label="High" value="High" />
+                </Picker>
+            </View>
             <TouchableOpacity style={styles.addButton} onPress={handleAddTask}>
                 <Text style={styles.addButtonText}>
                     {editIndex !== null ? "Update Task" : "Add Task"}
@@ -95,6 +126,22 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         marginBottom: 10,
     },
+    priorityContainer: {
+        marginBottom: 10,
+        width: "100%",
+    },
+    priorityLabel: {
+        fontSize: 16,
+        marginBottom: 5,
+    },
+    priorityPicker: {
+        height: 50,
+        width: "100%",
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 10,
+        backgroundColor: "#fff",
+    },
     addButton: {
         backgroundColor: "#007bff",
         padding: 12,
@@ -119,6 +166,7 @@ const styles = StyleSheet.create({
         shadowColor: "#000",
         shadowOpacity: 0.1,
         shadowRadius: 5,
+        borderWidth: 3, 
     },
     itemList: {
         fontSize: 16,

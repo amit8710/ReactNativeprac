@@ -41,6 +41,9 @@ export const Home: FC<Props> = ({ navigation }): ReactElement => {
       <View style={styles.buttonContainer}>
         <Button title="LocationAccess" onPress={() => navigation.navigate("Locationexamp")} />
       </View>
+      <View style={styles.buttonContainer}>
+        <Button title="Form" onPress={() => navigation.navigate("Form")} />
+      </View>
     </View>  
   );
 };

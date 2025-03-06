@@ -22,10 +22,9 @@ const Search = () => {
     { id: "11", title: "QA" },
   ];
 
-  const [search, setSearch] = useState('');
-  const [filteredData, setFilteredData] = useState(data);
+  const [search, setSearch] = useState<string>('');
+  const [filteredData, setFilteredData] = useState<Item[]>(data);
 
-  // Strictly typed handler
   const updateSearch = (searchText: string) => {
     setSearch(searchText);
     const filtered = data.filter(item =>
@@ -38,17 +37,13 @@ const Search = () => {
     <View style={{ flex: 1, paddingTop: 50 }}>
       <SearchBar
         placeholder="Search"
-        onChangeText={updateSearch as (text: string) => void} // Type assertion
+        onChangeText={updateSearch} // Directly pass the function
         value={search}
         platform="default"
         lightTheme
-        // Required props
         containerStyle={{}}
         inputContainerStyle={{}}
-        // Optional but recommended
         round
-        searchIcon={{ size: 24 }}
-        clearIcon={{ size: 24 }}
       />
       <FlatList
         data={filteredData}

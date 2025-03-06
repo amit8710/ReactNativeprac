@@ -22,7 +22,9 @@ const Research = ({ navigation }: Props) => {
         <View style={styles.buttonContainer}>
             <Button title="Crud App" onPress={() => navigation.navigate("Crud")} />
         </View>
-        
+        <View style={styles.buttonContainer}>
+          <Button title="Select" onPress={() => navigation.navigate("Select")} />
+        </View>
     </View>
   );
 };

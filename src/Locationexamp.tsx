@@ -1,87 +1,58 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Button, Alert, Platform, StyleSheet } from "react-native";
-import { request, PERMISSIONS, RESULTS, check } from "react-native-permissions";
-import * as Location from "expo-location";
+import React, { useEffect, useState } from "react";
+import { View, Text, Button, StyleSheet, Platform, PermissionsAndroid } from "react-native";
+import Geolocation from 'react-native-geolocation-service';
 
 const Locationexamp = () => {
-  const [location, setLocation] = useState<Location.LocationObject | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [location, setLocation] = useState<Geolocation.GeoCoordinates | null>(null);
 
-  const requestLocationPermission = async () => {
-    try {
-      let permission;
-      if (Platform.OS === "android") {
-        permission = PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION;
-      } else if (Platform.OS === "ios") {
-        permission = PERMISSIONS.IOS.LOCATION_WHEN_IN_USE;
-      }
-
-      const status = await request(permission);
-      if (status === RESULTS.GRANTED) {
-        getLocation();
+  const requestPermission = async () => {
+    if (Platform.OS === 'android') {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, {
+          title: "Location Permission",
+          message: "App needs access to your location.",
+          buttonNeutral: "Ask Me Later",
+          buttonPositive: "OK"
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("Location permission granted");
       } else {
-        Alert.alert("Permission Denied", "You need to allow location access.");
+        console.log("Location permission denied");
       }
-    } catch (error) {
-      console.error("Permission error", error);
-      Alert.alert("Error", "An error occurred while requesting permission.");
     }
   };
 
-  const getLocation = async () => {
-    setLoading(true);
-    try {
-      const loc = await Location.getCurrentPositionAsync({});
-      setLocation(loc);
-    } catch (error) {
-      Alert.alert("Error", "Failed to get location.");
-    } finally {
-      setLoading(false);
-    }
+  const getCurrentLocation = () => {
+    Geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position);
+        setLocation(position.coords);
+      },
+      (error) => {
+        console.log(error.message);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+    );
   };
 
   useEffect(() => {
-    const checkPermission = async () => {
-      const permission = Platform.OS === "android" 
-        ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION 
-        : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE;
-
-      const status = await check(permission);
-      if (status === RESULTS.GRANTED) {
-        getLocation();
-      } else {
-        requestLocationPermission();
-      }
-    };
-
-    checkPermission();
+    requestPermission();
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Button 
-        title={loading ? "Requesting..." : "Request Location Permission"} 
-        onPress={requestLocationPermission} 
-        disabled={loading}
-      />
+    <View>
+      <Button title="Get the current location" onPress={getCurrentLocation} />
       {location ? (
-        <Text>
-          Latitude: {location.coords.latitude}, Longitude: {location.coords.longitude}
-        </Text>
+        <>
+          <Text>Latitude: {location.latitude}</Text>
+          <Text>Longitude: {location.longitude}</Text>
+        </>
       ) : (
-        <Text>No location data available</Text>
+        <Text>No Location data</Text>
       )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-});
 
 export default Locationexamp;

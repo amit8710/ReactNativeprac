@@ -1,6 +1,8 @@
 import React from "react";
+import { View,StyleSheet,ImageBackground,Dimensions } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import Home from "./src/Home";
 import Apituto from "./src/Apituto";
 import Lineapi from "./src/Lineapi";
@@ -16,6 +18,9 @@ import Exampletable from "./src/Exampletable";
 import AsyncStorageExample from "./src/AsyncStorageExample";
 import { UserLogin } from "./src/UserLogin";
 import { UserRegister } from "./src/UserRegister"; 
+import Form from "./src/Form";
+import Select from "./src/Select";
+import Locationexamp from "./src/Locationexamp";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -34,6 +39,8 @@ export type RootStackParamList = {
   Login: undefined; 
   Register: undefined; 
   Locationexamp: undefined;
+  Form: undefined;
+  Select: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -57,6 +64,9 @@ const App = () => {
         <Stack.Screen name="AsyncStorageExample" component={AsyncStorageExample} />
         <Stack.Screen name="Login" component={UserLogin} />
         <Stack.Screen name="Register" component={UserRegister} />
+        <Stack.Screen name="Form" component={Form} />
+        <Stack.Screen name="Select" component={Select} />
+        <Stack.Screen name="Locationexamp" component={Locationexamp} />
        
       </Stack.Navigator>
     </NavigationContainer>
