@@ -25,6 +25,15 @@ const Research = ({ navigation }: Props) => {
         <View style={styles.buttonContainer}>
           <Button title="Select" onPress={() => navigation.navigate("Select")} />
         </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Icon"onPress={() =>  navigation.navigate("Iconexm")} />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Map"onPress={() =>  navigation.navigate("Mapexam")} />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Camera"onPress={() =>  navigation.navigate("Cameraexm")} />
+        </View>
     </View>
   );
 };

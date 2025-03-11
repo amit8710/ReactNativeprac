@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useState } from "react";
 import { Button, StyleSheet, TextInput, View, Alert,Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../App";
+import { RootStackParamList } from "../../App";
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, "Login">;
 type Props = { navigation: LoginScreenNavigationProp };

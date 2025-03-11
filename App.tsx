@@ -3,24 +3,27 @@ import { View,StyleSheet,ImageBackground,Dimensions } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Home from "./src/Home";
-import Apituto from "./src/Apituto";
-import Lineapi from "./src/Lineapi";
-import Listapi from "./src/Listapi";
-import Apiphoto from "./src/Apiphoto";
-import Templete from "./src/Templete";
-import FirstAxios from "./src/Firstaxos";
-import Research from "./src/Research";
-import Counter from "./src/Counter";
-import Exampleprops from "./src/Exampleprops";
-import Crud from "./src/Crud";
-import Exampletable from "./src/Exampletable";
-import AsyncStorageExample from "./src/AsyncStorageExample";
-import { UserLogin } from "./src/UserLogin";
-import { UserRegister } from "./src/UserRegister"; 
-import Form from "./src/Form";
-import Select from "./src/Select";
-import Locationexamp from "./src/Locationexamp";
+import Home from "./src/screens/Home";
+import Apituto from "./src/screens/Apituto";
+import Lineapi from "./src/components/Lineapi";
+import Listapi from "./src/components/Listapi";
+import Apiphoto from "./src/components/Apiphoto";
+import Templete from "./src/components/Templete";
+import FirstAxios from "./src/components/Firstaxos";
+import Research from "./src/screens/Research";
+import Counter from "./src/components/Counter";
+import Exampleprops from "./src/components/Exampleprops";
+import Crud from "./src/components/Crud";
+import Exampletable from "./src/screens/Exampletable";
+import AsyncStorageExample from "./src/components/AsyncStorageExample";
+import { UserLogin } from "./src/components/UserLogin";
+import { UserRegister } from "./src/components/UserRegister"; 
+import Form from "./src/screens/Form";
+import Select from "./src/components/Select";
+import Locationexamp from "./src/screens/Locationexamp";
+import Iconexm from "./src/components/Iconexm";
+import Mapexam from "./src/components/Mapexam";
+import Cameraexm from "./src/components/Cameraexm";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -41,6 +44,9 @@ export type RootStackParamList = {
   Locationexamp: undefined;
   Form: undefined;
   Select: undefined;
+  Iconexm: undefined;
+  Mapexam: undefined;
+  Cameraexm: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -67,6 +73,9 @@ const App = () => {
         <Stack.Screen name="Form" component={Form} />
         <Stack.Screen name="Select" component={Select} />
         <Stack.Screen name="Locationexamp" component={Locationexamp} />
+        <Stack.Screen name="Iconexm" component={Iconexm} />
+        <Stack.Screen name="Mapexam" component={Mapexam} />
+        <Stack.Screen name="Cameraexm" component={Cameraexm} />
        
       </Stack.Navigator>
     </NavigationContainer>

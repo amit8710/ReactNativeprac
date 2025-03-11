@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useLayoutEffect } from "react";
 import { Button, StyleSheet, Text, View, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../App";
+import { RootStackParamList } from "../../App";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 type Props = { navigation: HomeScreenNavigationProp };
